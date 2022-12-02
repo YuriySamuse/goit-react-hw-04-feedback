@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { nanoid } from 'nanoid';
 import { Button, Box } from 'components/FeedbackOptions/Feedback.styled';
 
@@ -24,4 +26,10 @@ const FeedbackOptions = ({ options, onLeaveFeedback }) => {
 function upperFirsLetter(str) {
   return str[0].toUpperCase() + str.substring(1);
 }
+
+FeedbackOptions.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  onLeaveFeedback: PropTypes.func.isRequired,
+};
+
 export default FeedbackOptions;
