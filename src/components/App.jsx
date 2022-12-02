@@ -1,7 +1,9 @@
 // import { render } from '@testing-library/react';
 import React from 'react';
-import FeedbackOptions from './FeedbackOptions/FeedbackOption';
-import Statistics from './Statistics/Statistics';
+import FeedbackOptions from 'components/FeedbackOptions/FeedbackOption';
+import Statistics from 'components/Statistics/Statistics';
+import Section from 'components/Section/Section';
+import Notification from 'components/Notification/Notification';
 
 class App extends React.Component {
   state = {
@@ -31,23 +33,25 @@ class App extends React.Component {
     const options = Object.keys(this.state);
     return (
       <>
-        <section title="Plese leave feedback">
-          <h1>Plese leave feedback</h1>
+        <Section title="Plese leave feedback">
           <FeedbackOptions
             options={options}
             onLeaveFeedback={this.handleFeedback}
           />
-        </section>
-        <section title="Statistics">
-          <h2>Statistics</h2>
-          <Statistics
-            good={good}
-            neutral={neutral}
-            bad={bad}
-            total={total}
-            percentage={positivePrcentage}
-          />
-        </section>
+        </Section>
+        <Section title="Statistics">
+          {!this.countTotalFeedback() ? (
+            <Notification message="Ще нема жодного feedback, будьте першим!!!" />
+          ) : (
+            <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={total}
+              percentage={positivePrcentage}
+            />
+          )}
+        </Section>
       </>
     );
   }
