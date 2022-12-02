@@ -1,13 +1,24 @@
 import React from 'react';
+import { nanoid } from 'nanoid';
+import { Button, Box } from 'components/FeedbackOptions/Feedback.styled';
 
 const FeedbackOptions = ({ options, onLeaveFeedback }) => {
-  return options.map((option, idx) => {
-    return (
-      <button key={idx} type="button" onClick={() => onLeaveFeedback(option)}>
-        {upperFirsLetter(option)}
-      </button>
-    );
-  });
+  return (
+    <Box>
+      {options.map(option => {
+        const id = nanoid();
+        return (
+          <Button
+            key={id}
+            type="button"
+            onClick={() => onLeaveFeedback(option)}
+          >
+            {upperFirsLetter(option)}
+          </Button>
+        );
+      })}
+    </Box>
+  );
 };
 
 function upperFirsLetter(str) {
