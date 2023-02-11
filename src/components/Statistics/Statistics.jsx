@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { List, Item } from 'components/Statistics/Statistics.styled';
 
