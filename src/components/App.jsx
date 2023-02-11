@@ -1,11 +1,11 @@
 // import { render } from '@testing-library/react';
-import React from 'react';
+import { Component } from 'react';
 import FeedbackOptions from 'components/FeedbackOptions/FeedbackOption';
 import Statistics from 'components/Statistics/Statistics';
 import Section from 'components/Section/Section';
 import Notification from 'components/Notification/Notification';
 
-class App extends React.Component {
+class App extends Component {
   state = {
     good: 0,
     neutral: 0,
