@@ -1,10 +1,67 @@
 // import { render } from '@testing-library/react';
-import { Component } from 'react';
+import { useState } from 'react';
 import FeedbackOptions from 'components/FeedbackOptions/FeedbackOption';
 import Statistics from 'components/Statistics/Statistics';
 import Section from 'components/Section/Section';
 import Notification from 'components/Notification/Notification';
 
+const options = ['good', 'neutral', 'bad'];
+
+const App = () => {
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
+
+  const handleFeedback = type => {
+    switch (type) {
+      case 'good':
+        return setGood(prevGood => prevGood + 1);
+      case 'bad':
+        return setBad(prevBad => prevBad + 1);
+      case 'neutral':
+        return setNeutral(prevNeutral => prevNeutral + 1);
+      default:
+        throw new Error('Unexpected value of option');
+    }
+  };
+
+  const countTotalFeedback = () => {
+    const values = Object.values([good, bad, neutral]);
+    return values.reduce((acc, value) => acc + value, 0);
+  };
+
+  const countPositiveFeedbackPercentage = (total, good) => {
+    const percentage = Math.round((good / total) * 100);
+    return percentage;
+  };
+
+  const total = countTotalFeedback();
+  const positivePercentage = countPositiveFeedbackPercentage(total, good);
+
+  return (
+    <>
+      <Section title="Plese leave feedback">
+        <FeedbackOptions options={options} onLeaveFeedback={handleFeedback} />
+      </Section>
+      <Section title="Statistics">
+        {!countTotalFeedback() ? (
+          <Notification message="Ще нема жодного feedback, будьте першим!!!" />
+        ) : (
+          <Statistics
+            good={good}
+            neutral={neutral}
+            bad={bad}
+            total={total}
+            percentage={positivePercentage}
+          />
+        )}
+      </Section>
+    </>
+  );
+};
+export default App;
+
+/*
 class App extends Component {
   state = {
     good: 0,
@@ -58,3 +115,4 @@ class App extends Component {
 }
 
 export default App;
+*/
