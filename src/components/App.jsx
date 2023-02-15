@@ -5,8 +5,6 @@ import Statistics from 'components/Statistics/Statistics';
 import Section from 'components/Section/Section';
 import Notification from 'components/Notification/Notification';
 
-const options = ['good', 'neutral', 'bad'];
-
 const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
@@ -37,11 +35,15 @@ const App = () => {
 
   const total = countTotalFeedback();
   const positivePercentage = countPositiveFeedbackPercentage(total, good);
+  const options = { good, neutral, bad };
 
   return (
     <>
       <Section title="Plese leave feedback">
-        <FeedbackOptions options={options} onLeaveFeedback={handleFeedback} />
+        <FeedbackOptions
+          options={Object.keys(options)}
+          onLeaveFeedback={handleFeedback}
+        />
       </Section>
       <Section title="Statistics">
         {!countTotalFeedback() ? (
